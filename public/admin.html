@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Paul's Cleaning Crews</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon using the logo -->
+    <link rel="icon" href="https://i.ibb.co/GyKhm3B/Screenshot-2025-08-10-094232.png" type="image/png">
+    <style>
+        /* Basic styles for the new media gallery - you can move this to style.css */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .media-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .media-item img, .media-item video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+            border-radius: 4px;
+        }
+        .media-item .delete-media-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .media-item .delete-media-btn:hover {
+            background-color: #c82333;
+        }
+        /* Dark mode adjustments for media items */
+        body.dark-mode .media-item {
+            background-color: #333;
+            border-color: #555;
+            color: #eee;
+        }
+        body.dark-mode .media-item .delete-media-btn {
+            background-color: #a00;
+        }
+        body.dark-mode .media-item .delete-media-btn:hover {
+            background-color: #c00;
+        }
+        /* Client list styling */
+        #clientList {
+            list-style: none;
+            padding: 0;
+        }
+        #clientList li {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #clientList li button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        #clientList li button:hover {
+            background-color: #c82333;
+        }
+        body.dark-mode #clientList li {
+            background-color: #444;
+            border-color: #666;
+            color: #eee;
+        }
+        body.dark-mode #clientList li button {
+            background-color: #a00;
+        }
+        body.dark-mode #clientList li button:hover {
+            background-color: #c00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="https://i.ibb.co/GyKhm3B/Screenshot-2025-08-10-094232.png" alt="Paul's Cleaning Crews Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Public Site</a></li>
+                <li><button id="admin-logout-btn" class="btn" style="display: none;">Logout</button></li>
+                <li><button id="settings-btn" class="settings-btn" aria-label="Settings">⚙️</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="admin-login" class="admin-section">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p id="login-message"></p>
+            </form>
+        </section>
+
+        <section id="admin-dashboard" class="admin-section" style="display: none;">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-nav">
+                <button id="addClientNavBtn">Add Client</button>
+                <button id="viewClientsNavBtn">View Clients</button>
+                <button id="mediaNavBtn">Add Pics/Videos</button>
+                <button class="btn" id="create-appointment-btn">Create Appointment</button>
+                <button class="btn" id="view-appointments-btn">View Appointments</button>
+                <button class="btn" id="view-complaints-btn">View Reports & Complaints</button>
+            </div>
+
+            <!-- Add Client Form -->
+            <div id="add-client-section" class="dashboard-content" style="display:none;">
+                <h3>Add New Client</h3>
+                <div class="form-group">
+                    <label for="newClientName">Name:</label>
+                    <input type="text" id="newClientName" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientEmail">Email:</label>
+                    <input type="email" id="clientEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Phone:</label>
+                    <input type="text" id="clientPhone" placeholder="Phone">
+                </div>
+                <div class="form-group">
+                    <label for="clientAddress">Address:</label>
+                    <input type="text" id="clientAddress" placeholder="Address">
+                </div>
+                <button id="saveClientBtn" class="btn">Save Client</button>
+                <p id="client-message"></p>
+            </div>
+
+            <!-- View Clients Section -->
+            <div id="view-clients-section" class="dashboard-content" style="display:none;">
+                <h3>Client List</h3>
+                <ul id="clientList">
+                    <!-- Clients will be loaded here by JavaScript -->
+                </ul>
+                <p id="no-clients-message" style="display: none;">No clients found.</p>
+            </div>
+
+            <!-- Media Management Section -->
+            <div id="media-management-section" class="dashboard-content" style="display:none;">
+                <h3>Upload & Manage Media</h3>
+                <input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none;">
+                <button id="uploadBtn" class="btn">Select Pics/Videos to Upload</button>
+                <p id="upload-message"></p>
+                <div class="media-gallery" id="mediaGallery">
+                    <!-- Uploaded media will be displayed here -->
+                </div>
+                <p id="no-media-message" style="display: none;">No media uploaded yet.</p>
+            </div>
+
+            <div id="create-appointment-section" class="dashboard-content" style="display: none;">
+                <h3>Create New Appointment</h3>
+                <form id="create-appointment-form">
+                    <div class="form-group">
+                        <label for="appointmentClientName">Client Name:</label>
+                        <input type="text" id="appointmentClientName" name="clientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number:</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service:</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a Service</option>
+                            <option value="Residential Cleaning">Residential Cleaning</option>
+                            <option value="Commercial Cleaning">Commercial Cleaning</option>
+                            <option value="Deep Cleaning">Deep Cleaning</option>
+                            <option value="Move-in/Move-out Cleaning">Move-in/Move-out Cleaning</option>
+                            <option value="Pressure Pipe Cleaning">Pressure Pipe Cleaning</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate">Date:</label>
+                        <input type="date" id="appointmentDate" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime">Time:</label>
+                        <input type="time" id="appointmentTime" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional):</label>
+                        <textarea id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Create Appointment</button>
+                    <p id="appointment-message"></p>
+                </form>
+            </div>
+
+            <div id="view-appointments-section" class="dashboard-content" style="display: none;">
+                <h3>All Appointments</h3>
+                <table id="appointments-table">
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th>Contact</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Appointments will be loaded here -->
+                    </tbody>
+                </table>
+                <p id="no-appointments-message" style="display: none;">No appointments found.</p>
+            </div>
+
+            <div id="view-complaints-section" class="dashboard-content" style="display: none;">
+                <h3>Reports & Complaints</h3>
+                <table id="complaints-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Sender Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Actions</th> <!-- NEW: Added Actions column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Complaints/Reports will be loaded here -->
+                    </tbody>
+                </table>
+                <p id="no-complaints-message" style="display: none;">No reports or complaints found.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Paul's Cleaning Crews. All rights reserved.</p>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close Settings">&times;</span>
+            <h3>Settings</h3>
+            <div class="setting-item">
+                <label for="theme-toggle">Dark Mode:</label>
+                <input type="checkbox" id="theme-toggle">
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul's Cleaning Crews</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon using the logo -->
+    <link rel="icon" href="https://i.ibb.co/GyKhm3B/Screenshot-2025-08-10-094232.png" type="image/png">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="https://i.ibb.co/GyKhm3B/Screenshot-2025-08-10-094232.png" alt="Paul's Cleaning Crews Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Our Work</a></li> <!-- Added link to gallery -->
+                <li><a href="#areas">Servicing Areas</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/admin" class="admin-login-btn">Admin Login</a></li>
+                <li><button id="settings-btn" class="settings-btn" aria-label="Settings">⚙️</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Paul's Cleaning Crews</h1>
+                <p>Your trusted partner for a sparkling clean home and office.</p>
+                <a href="#contact" class="btn">Get a Free Quote</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-us">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <div class="about-history">
+                    <h3>Our History</h3>
+                    <p>Paul Clean Crews began as a small, family-run service with just a few clients and a strong belief in the power of a clean space. What started with a single mop, a bucket, and a passion for helping people quickly grew into a trusted local business. Over the years, we’ve expanded our team, upgraded our tools, and refined our methods — all while keeping our friendly, personal touch. Today, Paul Clean Crews is proud to serve homes and businesses with the same dedication, attention to detail, and care that built our reputation from day one.</p>
+                </div>
+                <div class="about-points">
+                    <h3>Why Choose Us?</h3>
+                    <div class="point">
+                        <h4>1. Friendly & Local</h4>
+                        <p>Paul Clean Crews started with a simple goal — to make homes and offices around our community shine. With a friendly team and a passion for detail, we deliver spotless results that make your life easier and your space brighter.</p>
+                    </div>
+                    <div class="point">
+                        <h4>2. Professional & Trustworthy</h4>
+                        <p>At Paul Clean Crews, we believe a clean space is a happy space. Our experienced team provides reliable, thorough, and eco-friendly cleaning for homes and businesses, giving you more time to enjoy what matters most.</p>
+                    </div>
+                    <div class="point">
+                        <h4>3. Short & Catchy</h4>
+                        <p>Paul Clean Crews — making every corner sparkle, every time. Fast, friendly, and dependable cleaning you can count on.</p>
+                    </div>
+                    <div class="point">
+                        <h4>4. Eco-Friendly Angle</h4>
+                        <p>Paul Clean Crews is committed to spotless results with safe, eco-friendly products. We clean your space like it’s our own — protecting your family, pets, and the planet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="our-services">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <img src="https://i.ibb.co/Q73BpQRp/house-cleaning.jpg" alt="Residential Cleaning">
+                    <h3>Residential Cleaning</h3>
+                    <p>Keep your home spotless and comfortable with our comprehensive residential cleaning services.</p>
+                    <button class="learn-more-btn" data-service="residential">Learn More</button>
+                </div>
+                <div class="service-item">
+                    <img src="https://i.ibb.co/fzrTBkPp/unnamed.jpg" alt="Commercial Cleaning">
+                    <h3>Commercial Cleaning</h3>
+                    <p>Ensure a clean and professional environment for your business with our tailored commercial cleaning solutions.</p>
+                    <button class="learn-more-btn" data-service="commercial">Learn More</button>
+                </div>
+                <div class="service-item">
+                    <img src="https://i.ibb.co/dJx5DYrj/Deep-Cleaning-3-1024x676.jpg" alt="Deep Cleaning">
+                    <h3>Deep Cleaning</h3>
+                    <p>For a thorough refresh, our deep cleaning service tackles every nook and cranny, leaving your space pristine.</p>
+                    <button class="learn-more-btn" data-service="deep">Learn More</button>
+                </div>
+                <div class="service-item">
+                    <img src="https://i.ibb.co/GQq4yBvG/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg" alt="Move-in/Move-out Cleaning">
+                    <h3>Move-in/Move-out Cleaning</h3>
+                    <p>Make moving easier with our specialized cleaning services for empty properties, ensuring they are ready for new occupants.</p>
+                    <button class="learn-more-btn" data-service="move">Learn More</button>
+                </div>
+                <div class="service-item">
+                    <img src="https://i.ibb.co/G3s4rzD5/Best-Pressure-Washer-for-Drain-Pipe-Cleaning-Blockages.jpg" alt="Pressure Pipe Cleaning">
+                    <h3>Pressure Pipe Cleaning</h3>
+                    <p>Our advanced pressure cleaning techniques effectively clear blockages and maintain your pipes' efficiency.</p>
+                    <button class="learn-more-btn" data-service="pressure">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Modals (hidden by default) -->
+        <div id="service-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" aria-label="Close Modal">&times;</span>
+                <h3 id="modal-title"></h3>
+                <p id="modal-description"></p>
+            </div>
+        </div>
+
+        <!-- NEW SECTION FOR PUBLIC MEDIA GALLERY -->
+        <section id="gallery" class="public-gallery">
+            <h2>Our Work Gallery</h2>
+            <div class="public-media-gallery" id="publicMediaGallery">
+                <!-- Media will be loaded here by JavaScript -->
+            </div>
+            <p id="no-public-media-message" style="display: none; text-align: center; margin-top: 20px;">No work samples uploaded yet. Check back soon!</p>
+        </section>
+        <!-- END NEW SECTION -->
+
+        <section id="areas" class="servicing-areas">
+            <h2>Our Servicing Areas</h2>
+            <ul>
+                <li>Hastings</li>
+                <li>Napier</li>
+                <li>Flaxmere</li>
+                <li>Havelock</li>
+            </ul>
+        </section>
+
+        <section id="appointments" class="public-appointments">
+            <h2>Upcoming Appointments</h2>
+            <div id="appointments-list">
+                <p>Loading appointments...</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-us">
+            <h2>Contact Us</h2>
+            <p>Phone: <a href="tel:0226906916">022 690 6916</a></p>
+            <p>Ready for a sparkling clean space? Get in touch with Paul's Cleaning Crews today!</p>
+            <form id="complaint-report-form">
+                <h3>Send us a message (Complaint/Report)</h3>
+                <div class="form-group">
+                    <label for="senderName">Your Name:</label>
+                    <input type="text" id="senderName" name="senderName" required>
+                </div>
+                <div class="form-group">
+                    <label for="senderEmail">Your Email (Optional):</label>
+                    <input type="email" id="senderEmail" name="senderEmail">
+                </div>
+                <div class="form-group">
+                    <label for="senderPhone">Your Phone (Optional):</label>
+                    <input type="tel" id="senderPhone" name="senderPhone">
+                </div>
+                <div class="form-group">
+                    <label for="messageType">Type:</label>
+                    <select id="messageType" name="messageType" required>
+                        <option value="report">Report</option>
+                        <option value="complaint">Complaint</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Paul's Cleaning Crews. All rights reserved.</p>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close Settings">&times;</span>
+            <h3>Settings</h3>
+            <div class="setting-item">
+                <label for="theme-toggle">Dark Mode:</label>
+                <input type="checkbox" id="theme-toggle">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
